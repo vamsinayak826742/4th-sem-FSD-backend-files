@@ -2,27 +2,22 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-class Insert extends Frame implements ActionListener
+class Delete extends Frame implements ActionListener
 {
-	Label l1,l2;
-	TextField tf1,tf2,tf3,tf4;
+	Label l;
+	TextField tf1,tf2;
 	Button b;
-	Insert()
+	Delete()
 	{
 		setSize(300,300);
-		setLayout(new FlowLayout(FlowLayout.CENTER,30,20));
 		setVisible(true);
-		l1=new Label("Enter id:");
+		setLayout(new FlowLayout());
+		l=new Label("Enter id:");
 		tf1=new TextField(20);
-		l2=new Label("Enter Name:");
 		tf2=new TextField(20);
-		tf3=new TextField(20);
-		tf4=new TextField(20);
-		b=new Button("Insert");
-		add(l1);
+		b=new Button("Delete");
+		add(l);
 		add(tf1);
-		add(l2);
-		add(tf2);
 		add(b);
 		b.addActionListener(this);
 		WindowAdapterClose clsme=new WindowAdapterClose();
@@ -34,21 +29,12 @@ class Insert extends Frame implements ActionListener
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Connection c=DriverManager.getConnection("jdbc:oracle:thin:@ntsocietyserver:1521:oralbrce","scott","tiger");
-			PreparedStatement ps=c.prepareStatement("insert into vamsi225 values(?,?)");
+			PreparedStatement ps=c.prepareStatement("delete from vamsi225 where eid=?");
 			int i=Integer.parseInt(tf1.getText());  
 			ps.setInt(1,i);
-			ps.setString(2,tf2.getText());
-			int n=ps.executeUpdate();
-			if(n!=0)
-			{
-				tf3.setText("insert successfully");
-				tf4.setText("no.of rows affected:"+n);
-			}
-			else
-			{
-				tf3.setText("insert not successfully");
-			}
-			add(tf3);add(tf4);
+			ps.executeUpdate();
+			tf2.setText("Delete successfully");
+			add(tf2);
 		}
 		catch(Exception e1)
 		{
@@ -56,11 +42,11 @@ class Insert extends Frame implements ActionListener
 		}
 	}
 }
-class AwtInsertTry
+class AwtDeleteTry
 {
 	public static void main(String args[])
 	{
-		Insert s=new Insert();
+		Delete s=new Delete();
 	}
 }
 class WindowAdapterClose extends WindowAdapter
