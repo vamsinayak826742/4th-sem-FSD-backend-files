@@ -1,0 +1,8 @@
+SQL> create or replace procedure pushvalues
+  2   (peid in vamsi143.eid%type,pname in vamsi143.ename%type, pdept in vamsi143.edept%type, pdob in
+ vamsi143.edob%type)
+  3  is
+  4  begin
+  5  insert into vamsi143 values(peid,pname,pdept,pdob);
+  6  end;
+  7  /

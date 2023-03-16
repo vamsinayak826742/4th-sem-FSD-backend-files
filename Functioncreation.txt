@@ -1,0 +1,12 @@
+SQL>  create or replace function call143
+  2   (n1 in number,n2 in number)
+  3   return number
+  4   is
+  5   temp number(8);
+  6   begin
+  7   temp:=n1+n2;
+  8  return temp;
+  9  end;
+ 10  /
+
+Function created.
